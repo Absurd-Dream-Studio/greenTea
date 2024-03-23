@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "outDir": "build/Release",
+        "noImplicitAny": true,
+        "declaration": true,
+        "declarationMap": true,
+        "module": "ESNext",
+        "removeComments": false,
+        // "outFile": "./build/Release/index.js",
+        "target": "ESNext",
+        "jsx": "react",
+        "allowJs": true,
+        "moduleResolution": "NodeNext",
+        "lib": ["ESNext" , "DOM" , "DOM.Iterable"],
+        "types": ["reflect-metadata" , "node"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "sourceRoot": "./src/main",
+        "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@Src/*": [
+                "src/main/*"
+            ]
+        }
+    },
+    "include": [
+        "src/main/**/*",
+        "src/test/**/*"
+    ]
+}

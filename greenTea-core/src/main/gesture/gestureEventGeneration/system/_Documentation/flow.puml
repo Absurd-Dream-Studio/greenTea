@@ -1,0 +1,18 @@
+@startuml flow
+start
+if(touch start) then (yes)
+    :generate click and down event;
+    :add entity to long press map;
+elseif (touch move) then (yes)
+    :update down event value;
+    :update drag in event value;
+    :Remove LongPress Entity From Context When Move;
+elseif (touch end) then (yes)
+    :RemoveDownEventAndGenReleaseEventNode();
+    :RemoveDragInEventAndGenReleaseNode();
+    :RemoveLongPressEntityNodeFromContext();
+else (not thing)
+    :update long press entity map value;
+endif
+stop
+@enduml

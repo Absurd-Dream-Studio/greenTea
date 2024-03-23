@@ -1,0 +1,30 @@
+{
+  "name": "greentea-template-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/Release/index.js",
+  "typings": "./build/Release/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "test": "npx webpack --config webpack.unitTest.config.cjs && clear && node ./dist-unit-test/bundle.js",
+    "compile": "npx tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.3.0",
+    "tsc-alias": "^1.7.0",
+    "typescript": "^4.7.2",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "greentea-infrastructure": "file:../greenTea-infrastructure",
+    "inversify": "^6.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "exports": {
+    "./*": "./build/Release/*.js"
+  }
+}

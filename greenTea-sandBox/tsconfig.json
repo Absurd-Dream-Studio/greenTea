@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "module": "ESNext",
+        "target": "ESNext",
+        "jsx": "react",
+        "allowJs": true,
+        "moduleResolution": "NodeNext",
+        "lib": ["ESNext" , "DOM" , "DOM.Iterable"],
+        "types": ["reflect-metadata" , "node"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "sourceRoot": "./src",
+        "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@Icons/*" : ["resources/icon/*"],
+            "@Css/*" : ["resources/css/*"],
+            "@Html/*" : ["resources/html/*"],
+            "@Src/*" : ["src/*"]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
