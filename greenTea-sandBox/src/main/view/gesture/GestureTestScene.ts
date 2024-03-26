@@ -1,8 +1,8 @@
 import { Container, inject, injectable } from "inversify";
 import { TestEntityFactory } from "./TestEntityFactory.js";
 import { SceneBase } from "greentea-core/scene/SceneBase";
-import { IEntityCollection } from "greentea-infrastructure/ecs/collection/IEntityCollection";
-import TypeConfiguration from "@Src/main/app/appBuilder/dependencyInject/TypeConfiguration.js";
+import { IEntityCollection } from "greentea-infrastructure/ecs/entity/IEntityCollection";
+import TypeConfiguration from "greentea-infrastructure/dependencyInject/TypeConfiguration";
 
 @injectable()
 export class GestureTestScene extends SceneBase {
@@ -11,9 +11,9 @@ export class GestureTestScene extends SceneBase {
     private readonly diContainer: Container
 
     constructor(
-        @inject(TypeConfiguration.Infrastructure.IEntityCollection)
+        @inject(TypeConfiguration.TYPES.IEntityCollection)
         ec: IEntityCollection,
-        @inject(TypeConfiguration.Infrastructure.DIContainer)
+        @inject(TypeConfiguration.TYPES.DIContainer)
         diContainer: Container
     ) {
         super()
@@ -22,7 +22,7 @@ export class GestureTestScene extends SceneBase {
     }
 
     OnStart(): void {
-        this.ec.AddEntity(
+        const e1 = this.ec.AddEntity(
             this.diContainer.resolve(TestEntityFactory)
                 .setPos((pos) => {
                     pos.x = 500
@@ -30,13 +30,15 @@ export class GestureTestScene extends SceneBase {
                 }).getInstance()
         )
 
-        this.ec.AddEntity(
+        const e2 = this.ec.AddEntity(
             this.diContainer.resolve(TestEntityFactory)
                 .setPos((pos) => {
                     pos.x = 700
                     pos.y = 500
                 }).getInstance()
         )
+
+        console.log(e1, e2)
     }
     OnExit(): void {
     }
