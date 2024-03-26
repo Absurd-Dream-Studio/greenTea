@@ -2,37 +2,59 @@
 <html>
 
 <head>
-    <title>One Dollar Service</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <meta name="viewport" content="user-scalable = no">
+    <title>test</title>
+    <meta name="viewport" content="user-scalable=no">
     <meta charset="UTF-8">
 </head>
 
 
 <body class="hidden-overflow prevent-select">
-    <div id="map"></div>
-    <canvas id="main-layer"></canvas>
-</body>
-
-<div id="main-container">
-    <textarea id="main-textarea"></textarea>
-    <div id="react-container" class="main-layer">
+    <div id="main-container">
+        <div style="position: relative; width: 100%;height: 100%;">
+            <canvas id="main-layer"></canvas>
+            <textarea id="main-textarea"></textarea>
+            <div id="react-layer">
+                <div id="react-container" class="main-layer"></div>
+            </div>
+        </div>
     </div>
+</body>
 
 </html>
 <style>
-    #map {
+    #main-container {
+        touch-action: manipulation;
         position: absolute;
+        display: flex;
         top: 0;
-        bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
     }
 
+    #react-layer {
+        overflow: hidden;
+    }
+
+    #ads-space {
+        background: white;
+        min-width: 300px;
+        height: 100%;
+    }
+
+    #ads-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100%;
+        background: white;
+    }
+
     #main-layer {
         /* pointer-events: none; */
         position: absolute;
+        overscroll-behavior: contain;
         top: 0;
         bottom: 0;
         left: 0;

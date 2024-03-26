@@ -1,9 +1,9 @@
 import { Runnable } from "greentea-infrastructure/lang/Runnable";
-import { PixiContext } from "greentea-pixijs/PixiContext";
 import { inject, injectable } from "inversify";
 import { ISystemContext } from "greentea-infrastructure/app/ecs/system/ISystemContext";
-import TypeConfiguration from "../dependencyInject/TypeConfiguration.js";
-import { SystemType } from "greentea-infrastructure/app/ecs/system/SystemContext";
+import { SystemTypeEnum } from "greentea-infrastructure/app/ecs/system/SystemTypeEnum";
+import TypeConfiguration from "greentea-infrastructure/dependencyInject/TypeConfiguration";
+import { PixiContext } from "greentea-pixijs/PixiContext";
 
 @injectable()
 export class AppExecutor {
@@ -16,7 +16,7 @@ export class AppExecutor {
   private sysContext:ISystemContext
 
   constructor(
-    @inject(TypeConfiguration.Infrastructure.ISystemContext)
+    @inject(TypeConfiguration.TYPES.ISystemContext)
     sysContext:ISystemContext,
     pixiContext:PixiContext
   ) {
@@ -38,7 +38,7 @@ export class AppExecutor {
 
   private runFixedUpdateSystem(): void {
     this.totalStartRunTime = Date.now()
-    let configs = this.sysContext.getSystems(SystemType.FIXED_UPDATE)
+    let configs = this.sysContext.getSystems(SystemTypeEnum.FIXED_UPDATE)
     for (let system of configs) {
       this.systemStartRunTime = Date.now()
       try {
@@ -60,7 +60,7 @@ export class AppExecutor {
   }
 
   private runFrameUpdateSystem(): void {
-    let configs = this.sysContext.getSystems(SystemType.FRAME_UPDATE)
+    let configs = this.sysContext.getSystems(SystemTypeEnum.FRAME_UPDATE)
     for (let system of configs) {
       system.onUpdate(this.pixiContext.app.ticker.deltaMS)
     }
