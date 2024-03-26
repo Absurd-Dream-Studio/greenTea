@@ -1,5 +1,5 @@
 {
-  "name": "greentea-pixijs",
+  "name": "greentea-matterjs",
   "version": "1.0.0",
   "description": "",
   "main": "./build/Release/index.js",
