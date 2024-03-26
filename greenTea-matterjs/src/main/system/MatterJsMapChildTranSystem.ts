@@ -5,8 +5,8 @@ import { IEntityCollection } from "greentea-infrastructure/ecs/entity/IEntityCol
 import { ISystem } from "greentea-infrastructure/ecs/system/ISystem";
 import { SystemConfig } from "greentea-infrastructure/ecs/system/types/SystemConfig";
 import { inject, injectable } from "inversify";
-import { MatterJsComponent } from "./MatterJsComponent.js";
-import { MatterJsTranUtils } from "./MatterJsTranUtils.js";
+import { MatterJsComponent } from "../component/MatterJsComponent.js";
+import { MatterJsTranUtils } from "../utils/MatterJsTranUtils.js";
 
 @injectable()
 export class MatterJsMapChildTranSystem implements ISystem

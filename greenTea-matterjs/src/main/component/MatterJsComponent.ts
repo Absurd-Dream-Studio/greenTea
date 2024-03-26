@@ -1,6 +1,6 @@
 import { Entity } from "greentea-infrastructure/ecs/entity/Entity";
 import * as Matter from "matter-js";
-import { MatterJsBodyContainer } from "./MatterJsBodyContainer.js";
+import { MatterJsBodyContainer } from "../types/MatterJsBodyContainer.js";
 
 export class MatterJsComponent
 {

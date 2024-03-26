@@ -1,7 +1,8 @@
-import { MatterJsCollisionSetSystem } from "@Src/MatterJsCollisionSetSystem.js";
-import { MatterJsMapChildTranSystem } from "@Src/MatterJsMapChildTranSystem.js";
-import { MatterJsRunnerSystem } from "@Src/MatterJsRunnerSystem.js";
-import { MatterJsSetup } from "@Src/MatterJsSetup.js";
+import { MatterJsCollisionSetSystem } from "@Src/system/MatterJsCollisionSetSystem.js";
+import { MatterJsGestureSetup } from "@Src/setup/MatterJsGestureSetup.js";
+import { MatterJsMapChildTranSystem } from "@Src/system/MatterJsMapChildTranSystem.js";
+import { MatterJsRunnerSystem } from "@Src/system/MatterJsRunnerSystem.js";
+import { MatterJsSetup } from "@Src/setup/MatterJsSetup.js";
 import { AnimationClearSystem } from "greentea-core/animation/systems/AnimationClearSystem";
 import { AnimationDefaultHandleSystem } from "greentea-core/animation/systems/AnimationDefaultHandleSystem";
 import { AnimationDurationSystem } from "greentea-core/animation/systems/AnimationDurationSystem";
@@ -34,6 +35,7 @@ export const TestSetup = {
         CoreDefaultSetup.setup(diContainer)
         PixiSetup.setup(diContainer, {})
         MatterJsSetup.setup(diContainer)
+        MatterJsGestureSetup.setup(diContainer)
     },
     systemSetup(scope: ISystemScope, diContainer: Container) {
         scope.addSystemAfter(SystemTypeEnum.FIXED_UPDATE, undefined, [

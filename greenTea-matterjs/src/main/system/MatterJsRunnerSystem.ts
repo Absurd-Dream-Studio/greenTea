@@ -6,10 +6,10 @@ import { ISystem } from "greentea-infrastructure/ecs/system/ISystem";
 import { SystemConfig } from "greentea-infrastructure/ecs/system/types/SystemConfig";
 import { inject, injectable } from "inversify";
 import * as Matter from "matter-js";
-import { MatterJsComponent } from "./MatterJsComponent.js";
+import { MatterJsComponent } from "../component/MatterJsComponent.js";
 import { Entity } from "greentea-infrastructure/ecs/entity/Entity";
-import { MatterJsTranUtils } from "./MatterJsTranUtils.js";
-import { MatterJsContext } from "./MatterJsContext.js";
+import { MatterJsTranUtils } from "../utils/MatterJsTranUtils.js";
+import { MatterJsContext } from "../MatterJsContext.js";
 
 
 @injectable()

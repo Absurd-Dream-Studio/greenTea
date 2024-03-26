@@ -1,7 +1,7 @@
 import { Position } from "greentea-core/common/component/Position"
 import { Transformation } from "greentea-core/common/component/Transformation"
 import { Entity } from "greentea-infrastructure/ecs/entity/Entity"
-import { MatterJsComponent } from "./MatterJsComponent.js"
+import { MatterJsComponent } from "../component/MatterJsComponent.js"
 import * as Matter from "matter-js"
 
 export const MatterJsTranUtils = {
@@ -9,8 +9,9 @@ export const MatterJsTranUtils = {
         const pos = item.components.get(Position)
         const tran = item.components.get(Transformation)
         const com = item.components.get(MatterJsComponent)
-        if (pos && tran && com) {
+        if (pos && tran && com && com.body.getBody()) {
             const body = com.body.getBody()
+
             Matter.Body.setPosition(body, {
                 x: pos.screenX,
                 y: pos.screenY

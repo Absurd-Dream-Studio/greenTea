@@ -2,9 +2,9 @@ import TypeConfiguration from "greentea-infrastructure/dependencyInject/TypeConf
 import { EntityCollectionEventEnum } from "greentea-infrastructure/ecs/entity/EntityCollectionEventEnum";
 import { IEntityCollection } from "greentea-infrastructure/ecs/entity/IEntityCollection";
 import { Container } from "inversify";
-import { MatterJsComponent } from "./MatterJsComponent.js";
-import { MatterJsBodyEventEnum } from "./MatterJsBodyContainer.js";
-import { MatterJsContext } from "./MatterJsContext.js";
+import { MatterJsComponent } from "../component/MatterJsComponent.js";
+import { MatterJsBodyEventEnum } from "../types/MatterJsBodyContainer.js";
+import { MatterJsContext } from "../MatterJsContext.js";
 import * as Matter from "matter-js";
 
 export const MatterJsSetup = {
@@ -31,6 +31,7 @@ export const MatterJsSetup = {
 
                     if (v.newBody) {
                         Matter.Composite.add(context.engine.world, v.newBody)
+                        console.debug('new id ' + v.newBody.id)
                         context.bodyEntityMap.set(v.newBody.id, e.entityId)
                     }
                 })

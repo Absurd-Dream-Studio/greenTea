@@ -22,6 +22,7 @@ export class MatterJsBodyContainer {
 
     public commit() {
         this.actions.forEach((action) => { action() })
+        this.actions = []
     }
 
     public getListenerManager() {

@@ -1,10 +1,10 @@
 import { ISystem } from "greentea-infrastructure/ecs/system/ISystem";
 import { SystemConfig } from "greentea-infrastructure/ecs/system/types/SystemConfig";
 import { inject, injectable } from "inversify";
-import { MatterJsContext } from "./MatterJsContext.js";
+import { MatterJsContext } from "../MatterJsContext.js";
 import { IEntityCollection } from "greentea-infrastructure/ecs/entity/IEntityCollection";
 import TypeConfiguration from "greentea-infrastructure/dependencyInject/TypeConfiguration";
-import { MatterJsComponent } from "./MatterJsComponent.js";
+import { MatterJsComponent } from "../component/MatterJsComponent.js";
 
 @injectable()
 export class MatterJsCollisionSetSystem implements ISystem {
@@ -65,8 +65,10 @@ export class MatterJsCollisionSetSystem implements ISystem {
                     return
                 }
 
-                k_com.collisionSet.add(v_entity)
-                v_com.collisionSet.add(k_entity)
+                if (v_entity !== k_entity) {
+                    k_com.collisionSet.add(v_entity)
+                    v_com.collisionSet.add(k_entity)
+                }
             })
         })
         this.context.collisionActiveMap.clear()

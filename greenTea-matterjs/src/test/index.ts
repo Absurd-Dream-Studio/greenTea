@@ -18,10 +18,12 @@ const main = async () => {
     })
     TestSetup.setup(diContainer)
 
+
     const sysContext = diContainer.get<ISystemContext>(TypeConfiguration.TYPES.ISystemContext)
     const globalScope = sysContext.createScope()
 
     TestSetup.systemSetup(globalScope, diContainer)
+
 
     diContainer.resolve(AppExecutor).Start()
     diContainer.get(SceneContext)
