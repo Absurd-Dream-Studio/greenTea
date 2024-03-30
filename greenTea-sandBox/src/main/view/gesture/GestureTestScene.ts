@@ -22,6 +22,18 @@ export class GestureTestScene extends SceneBase {
     }
 
     OnStart(): void {
+
+        const el = document.createElement('div')
+
+        el.style.position = 'absolute'
+        el.style.top = '400px'
+        el.style.left = '400px'
+        el.style.width = '100px'
+        el.style.height = '100px'
+        el.style.backgroundColor = 'black'
+
+        document.body.appendChild(el)
+
         const e1 = this.ec.AddEntity(
             this.diContainer.resolve(TestEntityFactory)
                 .setPos((pos) => {
