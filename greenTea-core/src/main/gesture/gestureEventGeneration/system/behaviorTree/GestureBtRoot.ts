@@ -103,6 +103,7 @@ export default function (): BTNodeFactoryType<GestureBtContext> {
                     ]),
                     Seq([
                         isPointerEventType('pointerup'),
+                        PointerIsTracking,
                         FallBack([
                             Parallel([
                                 Seq([
@@ -119,6 +120,7 @@ export default function (): BTNodeFactoryType<GestureBtContext> {
                     ]),
                     Seq([
                         isPointerEventType('pointercancel'),
+                        PointerIsTracking,
                         EvalOnPointerCancelTrigger,
                         RemovePointerInMap,
                     ])
