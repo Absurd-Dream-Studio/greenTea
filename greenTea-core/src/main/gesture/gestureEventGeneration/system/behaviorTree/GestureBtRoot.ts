@@ -8,29 +8,33 @@ import isProcessState from "./condition/isProcessState.js";
 import UpdateInPointEntities from "./action/UpdateInPointEntities.js";
 import UpdateFocusEntity from "./action/UpdateFocusEntity.js";
 import AddToPointerMap from "./action/AddToPointerMap.js";
-import EvalOnClickTrigger from "./action/eval/EvalOnClickTrigger.js";
+import EvalOnClickTrigger from "./action/eval/entity/EvalOnClickTrigger.js";
 import HaveFocusEntity from "./condition/HaveFocusEntity.js";
 import { BTNodeResultEnum } from "greentea-infrastructure/ai/behaviorTree/BTNodeResultEnum";
 import Action from "greentea-infrastructure/ai/behaviorTree/tags/execution/Action";
 import FocusEntityHaveTriggerCom from "./condition/FocusEntityHaveTriggerCom.js";
 import isPointerEventType from "./condition/isPointerEventType.js";
 import FocusInEntityNotEqualFocusEntity from "./condition/FocusInEntityNotEqualFocusEntity.js";
-import EvalOnFocusInTrigger from "./action/eval/EvalOnFocusInTrigger.js";
+import EvalOnFocusInTrigger from "./action/eval/entity/EvalOnFocusInTrigger.js";
 import FocusInEntityStillInEc from "./condition/FocusInEntityStillInEc.js";
-import EvalOnFocusOutTrigger from "./action/eval/EvalOnFocusOutTrigger.js";
+import EvalOnFocusOutTrigger from "./action/eval/entity/EvalOnFocusOutTrigger.js";
 import UpdateLongPressTriggerWhenMoving from "./action/UpdateLongPressTriggerWhenMoving.js";
-import EvalOnMoveTrigger from "./action/eval/EvalOnMoveTrigger.js";
+import EvalOnMoveTrigger from "./action/eval/entity/EvalOnMoveTrigger.js";
 import PointerFirstClickEntityEqualToFoucsEntity from "./condition/PointerFirstClickEntityEqualToFoucsEntity.js";
-import EvalOnEnterTrigger from "./action/eval/EvalOnEnterTrigger.js";
+import EvalOnEnterTrigger from "./action/eval/entity/EvalOnEnterTrigger.js";
 import Not from "greentea-infrastructure/ai/behaviorTree/tags/execution/Not";
-import EvalOnReleaseTrigger from "./action/eval/EvalOnReleaseTrigger.js";
-import EvalOnPointerUpTrigger from "./action/eval/EvalOnPointerUpTrigger.js";
+import EvalOnReleaseTrigger from "./action/eval/entity/EvalOnReleaseTrigger.js";
+import EvalOnPointerUpTrigger from "./action/eval/entity/EvalOnPointerUpTrigger.js";
 import BeforeProcessEventQueueUpdatePointerFlag from "./action/BeforeProcessEventQueueUpdatePointerFlag.js";
 import UpdatePointerFlag from "./action/UpdatePointerFlag.js";
 import RemovePointerInMap from "./action/RemovePointerInMap.js";
-import EvalOnPointerCancelTrigger from "./action/eval/EvalOnPointerCancelTrigger.js";
-import EvalOnLongPressTrigger from "./action/eval/EvalOnLongPressTrigger.js";
+import EvalOnPointerCancelTrigger from "./action/eval/entity/EvalOnPointerCancelTrigger.js";
+import EvalOnLongPressTrigger from "./action/eval/entity/EvalOnLongPressTrigger.js";
 import PointerIsTracking from "./condition/PointerIsTracking.js";
+import EvalBackgroundOnClickEvent from "./action/eval/background/EvalBackgroundOnClickEvent.js";
+import EvalBackgroundOnMoveEvent from "./action/eval/background/EvalBackgroundOnMoveEvent.js";
+import EvalBackgroundOnPointerUpEvent from "./action/eval/background/EvalBackgroundOnPointerUpEvent.js";
+import EvalBackgroundOnPointerCancelEvent from "./action/eval/background/EvalBackgroundOnPointerCancelEvent.js";
 
 export default function (): BTNodeFactoryType<GestureBtContext> {
     return (
@@ -63,7 +67,11 @@ export default function (): BTNodeFactoryType<GestureBtContext> {
                                         FocusInEntityStillInEc,
                                         EvalOnFocusOutTrigger
                                     ]),
-                                    Action(ctx=>{
+                                    Seq([
+                                        Not(HaveFocusEntity),
+                                        EvalBackgroundOnClickEvent
+                                    ]),
+                                    Action(ctx => {
                                         ctx.focusInEntity = ctx.foucsEntity
                                         return BTNodeResultEnum.SUCCESS
                                     })
@@ -89,6 +97,10 @@ export default function (): BTNodeFactoryType<GestureBtContext> {
                                         FocusEntityHaveTriggerCom,
                                         Not(PointerFirstClickEntityEqualToFoucsEntity),
                                         EvalOnEnterTrigger
+                                    ]),
+                                    Seq([
+                                        Not(HaveFocusEntity),
+                                        EvalBackgroundOnMoveEvent
                                     ])
                                 ]),
                             ]),
@@ -112,6 +124,10 @@ export default function (): BTNodeFactoryType<GestureBtContext> {
                                     PointerFirstClickEntityEqualToFoucsEntity,
                                     EvalOnReleaseTrigger,
                                 ]),
+                                Seq([
+                                    Not(HaveFocusEntity),
+                                    EvalBackgroundOnPointerUpEvent
+                                ]),
                                 EvalOnPointerUpTrigger,
                             ]),
                             Predicate(ctx => true)
@@ -120,9 +136,18 @@ export default function (): BTNodeFactoryType<GestureBtContext> {
                     ]),
                     Seq([
                         isPointerEventType('pointercancel'),
-                        PointerIsTracking,
-                        EvalOnPointerCancelTrigger,
-                        RemovePointerInMap,
+                        Parallel([
+                            Seq([
+                                PointerIsTracking,
+                                EvalOnPointerCancelTrigger,
+                                RemovePointerInMap,
+                            ]),
+                            Seq([
+                                Not(HaveFocusEntity),
+                                EvalBackgroundOnPointerCancelEvent
+                            ]),
+                            Predicate(ctx => true)
+                        ])
                     ])
                 ]),
             ]),

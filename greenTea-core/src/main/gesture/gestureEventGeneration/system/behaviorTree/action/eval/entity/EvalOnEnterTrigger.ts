@@ -1,5 +1,5 @@
 import Action from "greentea-infrastructure/ai/behaviorTree/tags/execution/Action"
-import { GestureBtContext } from "../../GestureBtContext.js"
+import { GestureBtContext } from "../../../GestureBtContext.js"
 import { BTNodeResultEnum } from "greentea-infrastructure/ai/behaviorTree/BTNodeResultEnum"
 import { GestureEventTriggerComponent, GestureEventTriggerEventEnum } from "@Src/gesture/gestureEventTrigger/GestureEventTriggerComponent.js"
 
@@ -9,10 +9,10 @@ export default Action<GestureBtContext>(context => {
 
     const triggerCom = entity.components.get(GestureEventTriggerComponent)
 
-    triggerCom.eventListener.evalListener(GestureEventTriggerEventEnum.ON_RELEASE, {
+    triggerCom.eventListener.evalListener(GestureEventTriggerEventEnum.ON_ENTER, {
         id: pointer.pointerId,
-        x: pointer.clientX,
-        y: pointer.clientY,
+        clientX: pointer.clientX,
+        clientY: pointer.clientY,
     })
 
     return BTNodeResultEnum.SUCCESS
